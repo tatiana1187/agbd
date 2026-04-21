@@ -28,4 +28,11 @@ SELECT e.LastName AS "apellido_empleado", j.LastName AS "ape_jefe", e.Title, COU
 JOIN employees j ON e.ReportsTo = j.EmployeeId
 JOIN customers c  ON e.EmployeeId = c.SupportRepId
 GROUP BY e.EmployeeId
-
+7
+SELECT e.FirstName , e.LastName, c.FirstName, c.LastName FROM employees e
+JOIN customers c on e.EmployeeId = c.SupportRepId
+ORDER by e.LastName
+8
+SELECT  c.FirstName, c.LastName, c.Address, i.InvoiceDate FROM customers c
+JOIN invoices i on c.CustomerId = i.CustomerId
+ORDER by c.LastName
