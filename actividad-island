@@ -1,0 +1,31 @@
+SELECT *FROM inhabitat
+selecciona la tabla completa de ‘inhabitant’
+
+
+SELECT *FROM inhabitant WHERE job = 'butcher'
+selecciona solo la tabla de habitantes con estado butcher
+
+
+SELECT *FROM inhabitant WHERE state = 'friendly' AND job = 'weaponsmith'
+selecciona la tabla de habitantes donde estado es ‘friendly’ y trabajan en 'weaponsmith'
+
+
+SELECT *FROM inhabitant WHERE state = 'friendly' AND job LIKE '%SMITH'
+selecciona los habitantes ‘friendly’ donde trabajo acaba en ‘smith’
+
+
+SELECT personid FROM inhabitant WHERE name='Stranger'
+selecciona el ID del habitante cual nombre el ‘Stranger’
+
+
+SELECT gold FROM inhabitant WHERE name = 'Stranger'
+muestra cuantas monedas de oro tiene el habitante llamado ‘Stranger’
+SELECT * FROM item WHERE owner IS NULL
+selecciona todos los items que no tengan dueño
+UPDATE item SET owner = 20 WHERE owner IS NULL
+Asigna como dueño al número 20 a todos los items que esten vacios
+SELECT * FROM item WHERE owner = 20
+
+
+
+
