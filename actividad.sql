@@ -73,5 +73,5 @@ JOIN genres g ON t.GenreId = g.GenreId
 JOIN media_types mt ON t.MediaTypeId = mt.MediaTypeId
 JOIN playlist_track pt ON t.TrackId = pt.TrackId
 JOIN playlists p ON pt.PlaylistId = p.PlaylistId
-JOIN employees
+JOIN employees e ON C.Support.Repld=e.Employeeld
  
