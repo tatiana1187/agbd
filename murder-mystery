@@ -1,0 +1,36 @@
+SELECT * FROM crime_scene_report
+WHERE date = 20180115
+AND type = 'murder'
+AND city LIKE 'SQL City';
+
+selecciona la tabla del caso, donde muestra la fecha, el asesinato y la ciudad
+
+SELECT * FROM person
+JOIN interview ON person.id = interview.person_id
+WHERE address_street_name LIKE 'North%'
+ORDER BY address_number DESC
+LIMIT 1;
+
+
+selecciona la tabla de las personas, luego une los ID de las dos tablas y luego busca la 
+persona que vive en una calle que empiece con 'North%'. Después hay un limite de numero, cual va a devolver el número más alto.
+
+SELECT * FROM drivers_license
+WHERE plate_number LIKE '48Z%';
+
+ 
+selecciona la tabla drivers_license.  Donde busque la patente empiece   48Z%'
+
+SELECT * FROM person
+JOIN drivers_license ON person.license_id = drivers_license.id
+JOIN get_fit_now_member ON person.id = get_fit_now_member.person_id
+JOIN get_fit_now_check_in ON get_fit_now_member.id = get_fit_now_check_in.membership_id
+WHERE plate_number LIKE '%H42W%'
+AND get_fit_now_member.id LIKE '%48Z%';
+
+
+
+
+selecciona la tabla persona, luego uno tres tablas e identifica la patente que contenga este '%H42W%' numero y este otro número '%48Z%'
+
+
