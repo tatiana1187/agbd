@@ -69,4 +69,20 @@ plt.savefig("reporte_barras.png", dpi=300)
 plt.close()
 
 
+#Actividad 8
+print("\n Actividad 8")
+datos_torta = grupo.nlargest(5)
+plt.figure(figsize=(8, 8))
+
+plt.pie(
+    datos_torta.values,
+    labels=datos_torta.index,
+    autopct="%1.1f%%",
+    wedgeprops={"edgecolor": "white"}
+)
+plt.savefig("reporte_torta.png", dpi=300)
+plt.close()
+print("Gráfico de torta guardado como reporte_torta.png")
+
+
 
