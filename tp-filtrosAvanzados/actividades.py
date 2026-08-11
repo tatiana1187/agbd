@@ -64,8 +64,6 @@ sns.barplot(
 plt.title("Total de Votos por Tipo de Ataque", fontsize=14)
 plt.xlabel("Tipo de Ataque", fontsize=12)
 plt.ylabel("Total de Votos", fontsize=12)
-plt.xticks(rotation=35, ha="right")
-plt.tight_layout()
 plt.savefig("reporte_barras.png", dpi=300)
 plt.close()
 
@@ -78,7 +76,6 @@ plt.figure(figsize=(8, 8))
 plt.pie(
     datos_torta.values,
     labels=datos_torta.index,
-    autopct="%1.1f%%",
     wedgeprops={"edgecolor": "white"}
 )
 plt.savefig("reporte_torta.png", dpi=300)
