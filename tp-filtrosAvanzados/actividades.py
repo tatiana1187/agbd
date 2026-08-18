@@ -157,6 +157,16 @@ print("Con corchetes (filas):", len(resultado_original))
 print("Con .query() (filas):", len(resultado_query))
 print("¿Son exactamente iguales?:", resultado_original.equals(resultado_query))
 
+#El resultado de .query() no es idéntico al filtro_avanzado original ya que pone condiciones diferentes: 
+#filtro_avanzado busca cadenas que empiezan con "Cyber" en el tipo de ataque, mientras que .query() filtra
+#por gastos mayores a 5 y el partido "BJP". Pero si comparas .query() contra su cantidad exacto hecho con corchetes, 
+# el resultado sí es totalmente igual.
+#para entender la sintaxis con corchetes es más clara en filtros sencillos o cuando usas métodos de texto, pero .query() 
+#se vuelve mucho más limpia cuando combinas muchas condiciones al parecerse al lenguaje natural o SQL.
+#Usar la @ te permite conectar variables externas de Python dentro de la consulta de forma dinámica,
+#haciendo que el código sea reutilizable, más limpio y libre de errores al no tener que unir comillas ni texto a manualmente.
+
+
 #Actividad 13
 print("\nActividad 13")
 
@@ -173,6 +183,16 @@ suma = len(df_incluidos) + len(df_excluidos)
 print(f"Total original: {total} | Incluidos + Excluidos: {suma}")
 print(f"¿Coinciden el total y la suma?: {total == suma}")
 
+#la suma de incluidas más excluidas da exactamente el total. Esto siempre tiene que ser así porque el operador ~ invierte la condición
+#o un dato cumple con pertenecer a la lista o no cumple, así que no hay forma de que una fila quede afuera o se cuente dos veces.
+
+#La ventaja de usar .isin(['A', 'B', 'C']) es que te ahorrás escribir un choclo de código larguísimo y repetitivo. Es mucho más rápido 
+#de tipearla, queda súper prolija y encima es menos probable que le pifies a un paréntesis o a las comillas.
+
+#En un análisis real usarías la versión con ~ cuando quieras limpiar tus datos o sacarte de encima cosas que no te sirvan. Por ejemplo, 
+#si querés analizar todas las provincias de Argentina excepto Buenos Aires, o si querés descartar un par de partidos políticos chiquitos
+#para enfocarte solo en el resto de la tabla.
+
 #Actividad 14
 print("Value Counts:\n", df['Party'].value_counts())
 print("\nValores únicos:\n", df['Party'].unique())
@@ -184,6 +204,18 @@ print("Value Counts:\n", df_filtrado['Party'].value_counts())
 print("\nValores únicos:\n", df_filtrado['Party'].unique())
 print("\nCantidad de categorías distintas:", df_filtrado['Party'].nunique())
 print("\nPorcentajes (%):\n", (df_filtrado['Party'].value_counts(normalize=True) * 100).round(1))
+
+#Sí, la distribución de categorías cambia bastante. Cuando aplicás el filtro, los porcentajes de cada partido 
+#se mueven porque te estás enfocando únicamente en un tipo de ataque específico y no en toda la base. Eso te dice que la 
+# ciberdelincuencia no afecta a todos los partidos por igual, sino que algunos están mucho más expuestos o concentran más ataques que otros.
+
+#En cuanto a si alguna categoría desapareció, sí puede pasar: si un partido no tuvo ningún registro dentro de ese filtro en particular,
+#desaparece por completo del listado o te da cero. Eso te marca clarito qué partidos directamente no registraron ese tipo de incidente.
+
+#`value_counts()` y `groupby().count()` te pueden dar el mismo resultado numérico si usás este último sobre una sola columna,
+#pero no funcionan igual. Usarías `value_counts()` cuando hay un conteo rápido, fácil de leer y ordenado de mayor a menor para una sola
+#variable categórica. En cambio, `groupby().count()` te conviene cuando querés hacer un análisis más profundo y cruzar varias variables 
+#al mismo tiempo, como ver cuántos registros hay agrupando por partido y por estado a la vez.
 
 #Actividad 15
 print("\n Actividad 15")
@@ -232,6 +264,19 @@ par_min = correlacion_sin_diag.stack().idxmin()
 
 print(f"\nPar más correlacionado: {par_max[0]} ↔ {par_max[1]}")
 print(f"Par menos correlacionado: {par_min[0]} ↔ {par_min[1]}")
+
+#Para saber el par con la correlación más alta tenés que mirar la consola, donde tu propio código imprime un Par más correlacionado:
+#columnaA ↔ columnaB`. Normalmente en datos de elecciones y campañas, la correlación más alta suele darse entre el gasto de campaña y
+#los votos totales recibidos, lo cual tiene todo el sentido del mundo porque a mayor inversión en publicidad y logística, más llegada 
+#y respuesta se suele obtener en las urnas.
+
+#Una correlación cercana a 1 significa que cuando una variable sube, la otra también sube en la misma proporción (una relación positiva re fuerte).
+#Si es cercana a 0, quiere decir que no hay ninguna relación entre las dos cosas, se mueven de forma totalmente independiente. Y si es negativa 
+#(cercana a -1), significa que van para lados opuestos: cuando una sube, la otra baja.
+
+#Usamos el DataFrame completo para calcular la correlación porque necesitamos ver el panorama general de todos los datos juntos. 
+#Si lo hiciéramos solo con el filtrado, estaríamos recortando la muestra y perdiendo información valiosa, lo que podría darnos relaciones 
+#falsas o sesgadas que no representan la realidad de toda la tabla.
 
 
 
