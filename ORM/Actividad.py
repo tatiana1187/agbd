@@ -53,7 +53,7 @@
      #   print(u.nombre, u.email)  # ← atributos reales, no índices
 
 
-from sqlalchemy import Column, Integer, String, Boolean, create_engine
+from sqlalchemy import Column, Integer, String, Boolean, create_engine, or_
 from sqlalchemy.orm import DeclarativeBase, Session
 
 # 1. Definimos la clase (una sola vez)
@@ -166,6 +166,14 @@ with Session(engine) as session:
         categoria="Accesorios",
         activo=True,
     )
+    producto11 = Producto(
+        id=11,
+        nombre="Placa de video",
+        precio=None,
+        stock=50,
+        categoria=None,
+        activo=True,
+    )
 
     session.add_all([
         producto1,
@@ -178,6 +186,7 @@ with Session(engine) as session:
         producto8,
         producto9,
         producto10,
+        producto11,
     ])
 
     session.commit()
@@ -284,33 +293,80 @@ with Session(engine) as session:
 #)
 
 #actividad 8
+#productos = session.query(Producto) \
+        #           .filter(Producto.activo == False) \
+          #         .all()
+
+#print("\nProductos en stock activos")
+
+#for producto in productos:
+ #   print(
+  #      producto.nombre,
+   #      "- $", producto.precio,
+    #    "- Stock:", producto.stock,
+     # "- Activo:", producto.activo
+
+    #)
+#actividad final
+
+#producto = session.get(Producto, 9)
+
+#producto.activo = True
+#producto.stock = 20
+
+#session.commit()
+
+#print("\nHub USB-C actualizado:")
+#print(
+ #   producto.nombre,
+  #  "- Stock:", producto.stock,
+   # "- Activo:", producto.activo
+#)
+
+#actividad 9
+#productos = session.query(Producto) \
+ #                 .filter((Producto.categoria == "Componentes") |
+  #                        (Producto.categoria =="Audio")) \
+   #               .all()
+
+#print("\nProductos de la categoría Periféricos:")
+
+#for producto in productos:
+ #   print(
+  #      producto.nombre,
+   #     "- $", producto.precio
+    #)
+#actividad 10
+# actividad 10
+
 productos = session.query(Producto) \
-                   .filter(Producto.activo == False) \
+                   .filter(Producto.nombre.contains("a")) \
                    .all()
 
-print("\nProductos en stock activos")
+print("\nProductos cuyo nombre contiene la letra 'a':")
 
 for producto in productos:
-    print(
-        producto.nombre,
-         "- $", producto.precio,
-        "- Stock:", producto.stock,
-      "- Activo:", producto.activo
+    print(producto.nombre)
 
-    )
-#actividad 8
-# actividad 8
+#actividad 11
+productos = session.query(Producto) \
+                   .filter(Producto.nombre.startswith("m")) \
+                   .all()
 
-producto = session.get(Producto, 9)
+print("\nProductos cuyo nombre contiene la letra 'm':")
 
-producto.activo = True
-producto.stock = 20
+for producto in productos:
+    print(producto.nombre)
 
-session.commit()
+ #actividad 12
+productos = session.query(Producto) \
+                   .filter(Producto.categoria == None) \
+                   .filter(Producto.precio == None)\
+                   .all()
 
-print("\nHub USB-C actualizado:")
-print(
-    producto.nombre,
-    "- Stock:", producto.stock,
-    "- Activo:", producto.activo
-)
+print("\nCategorias nulas:")
+
+for producto in productos:
+    print(producto.nombre,
+          "-Categoria", producto.categoria,
+          "-Precio", producto.precio)
