@@ -339,34 +339,80 @@ with Session(engine) as session:
 #actividad 10
 # actividad 10
 
-productos = session.query(Producto) \
-                   .filter(Producto.nombre.contains("a")) \
-                   .all()
+#productos = session.query(Producto) \
+ #                  .filter(Producto.nombre.contains("a")) \
+  #                 .all()
 
-print("\nProductos cuyo nombre contiene la letra 'a':")
+#print("\nProductos cuyo nombre contiene la letra 'a':")
 
-for producto in productos:
-    print(producto.nombre)
+#for producto in productos:
+ #   print(producto.nombre)
 
 #actividad 11
-productos = session.query(Producto) \
-                   .filter(Producto.nombre.startswith("m")) \
-                   .all()
+#productos = session.query(Producto) \
+ #                  .filter(Producto.nombre.startswith("m")) \
+  #                 .all()
 
-print("\nProductos cuyo nombre contiene la letra 'm':")
+#print("\nProductos cuyo nombre contiene la letra 'm':")
 
-for producto in productos:
-    print(producto.nombre)
+#for producto in productos:
+ #   print(producto.nombre)
 
  #actividad 12
+#productos = session.query(Producto) \
+ #                  .filter(Producto.categoria == None) \
+  #                 .filter(Producto.precio == None)\
+   #                .all()
+
+#print("\nCategorias nulas:")
+
+#for producto in productos:
+ #   print(producto.nombre,
+  #        "-Categoria", producto.categoria,
+   #       "-Precio", producto.precio)
+#Actividad 14
 productos = session.query(Producto) \
-                   .filter(Producto.categoria == None) \
-                   .filter(Producto.precio == None)\
+                   .filter(Producto.categoria == "Periféricos") \
                    .all()
 
-print("\nCategorias nulas:")
+for producto in productos:
+    producto.precio = producto.precio * 1.10
+
+session.commit()
+
+print("\nProductos Periféricos con aumento del 10%:")
 
 for producto in productos:
-    print(producto.nombre,
-          "-Categoria", producto.categoria,
-          "-Precio", producto.precio)
+    print(
+        producto.nombre,
+        "- $", producto.precio
+    )
+    
+#Actividad 15
+
+
+producto = session.get(Producto, 10)
+
+session.delete(producto)
+
+session.commit()
+
+cantidad = session.query(Producto).count()
+
+print("\nCantidad de productos:", cantidad)
+#Actividad 16
+productos = session.query(Producto) \
+                   .filter(
+                       (Producto.precio < 2000) |
+                       (Producto.activo == False)
+                   ) \
+                   .all()
+
+cantidad_borrados = len(productos)
+
+for producto in productos:
+    session.delete(producto)
+
+session.commit()
+
+print("\nCantidad de productos borrados:", cantidad_borrados)
