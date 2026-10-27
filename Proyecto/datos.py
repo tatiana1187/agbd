@@ -1,7 +1,7 @@
 from datetime import date
 from sqlalchemy.orm import sessionmaker
-from schema import engine, Categoria, Producto, Variante, Cliente, Pedido, DetallePedido
-
+#from schema import engine, Categoria, Producto, Variante, Cliente, Pedido, DetallePedido
+from models import engine, Categoria, Producto, Variante, Cliente, Pedido, DetallePedido
 
 Session = sessionmaker(bind=engine)
 session = Session()
